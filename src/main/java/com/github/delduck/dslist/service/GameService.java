@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.delduck.dslist.dto.GameDTO;
 import com.github.delduck.dslist.dto.GameMinDTO;
 import com.github.delduck.dslist.entities.Game;
+import com.github.delduck.dslist.projections.GameMinProjection;
 import com.github.delduck.dslist.repositories.GameRepository;
 
-//precisamos 'registrar' essa CLASSE como um componente no SPRING - Framework que vai gerenciar pra gente  - @Component  //registra
-@Service  //apelido, faz a mesma coisa
+@Service
 public class GameService {
 	
 	@Autowired
@@ -21,8 +21,8 @@ public class GameService {
 	@Transactional(readOnly = true)
 	public List<GameMinDTO> listAll() {
 		List<Game> result = gameRepository.findAll();
-		List<GameMinDTO> dto = result.stream().map(  //convertemos 
-				x -> new GameMinDTO(x)).toList();   //map -> transforma objetos de uma coisa para outra
+		List<GameMinDTO> dto = result.stream().map(   
+				x -> new GameMinDTO(x)).toList();
 		return dto;
 	}
 	
@@ -30,6 +30,16 @@ public class GameService {
 	public GameDTO findById(Long gameId) {
 		Game result = gameRepository.findById(gameId).get();
 		return new GameDTO(result);
+	}
+	
+	
+	@Transactional(readOnly = true)
+	public List<GameMinDTO> findByList(Long listId) {
+		List<GameMinProjection> result = gameRepository.searchByList(listId);
+		
+		List<GameMinDTO> dto = result.stream().map( 
+				x -> new GameMinDTO(x)).toList();
+		return dto;
 	}
 
 }

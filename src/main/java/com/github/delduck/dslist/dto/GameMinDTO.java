@@ -1,6 +1,7 @@
 package com.github.delduck.dslist.dto;
 
 import com.github.delduck.dslist.entities.Game;
+import com.github.delduck.dslist.projections.GameMinProjection;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,13 +17,20 @@ public class GameMinDTO {
 	private String imgUrl;
 	private String shortDescription;
 	
-	//construtor que recebe a entidade, copiando os dados da entidade
 	public GameMinDTO(Game entity) {
 		this.id = entity.getId();
 		this.title = entity.getTitle();
 		this.year = entity.getYear();
 		this.imgUrl = entity.getImgUrl();
 		this.shortDescription = entity.getShortDescription();
+	}
+	
+	public GameMinDTO(GameMinProjection projection) {
+		this.id = projection.getId();
+		this.title = projection.getTitle();
+		this.year = projection.getYear();
+		this.imgUrl = projection.getImgUrl();
+		this.shortDescription = projection.getShortDescription();
 	}
 	
 	

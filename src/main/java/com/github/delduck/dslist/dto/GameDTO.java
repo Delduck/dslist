@@ -23,9 +23,9 @@ public class GameDTO {
 	private String shortDescription;
 	private String longDescription;
 	
-	// Lógica para copiar os dados da entidade  para DTO 'representation model' 
+	
 	public GameDTO(Game entity) {
-		BeanUtils.copyProperties(entity, this); //copitando tudo da entidade para este objeto - nomes devem ser iguais
+		BeanUtils.copyProperties(entity, this);
 	}
 	
 	
